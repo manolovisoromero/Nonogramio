@@ -1,0 +1,78 @@
+.App {
+  /* text-align: center; */
+  background-color: #282c34;
+  min-height: 100vh;
+
+}
+
+
+.App-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  height: 20%;
+}
+
+.App-link {
+  color: #09d3ac;
+}
+
+.topname {
+  height: 20%;
+}
+
+.h1tag{
+  margin: 0;
+}
+
+.square {
+  background: #fff;
+  border: 1px solid #999;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 50px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 50px;
+}
+
+.square:focus {
+  outline: none;
+}
+
+.square:hover{
+  background: red;
+
+}
+
+.gameHolder{
+  /* flex: 1;
+  margin-left: 37%;
+  display: flex;
+  flex-direction: row;
+  align-items: center; */
+
+
+}
+
+.board-row:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+.gameBoard{
+  margin-top: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
