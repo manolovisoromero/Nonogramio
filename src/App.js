@@ -88,7 +88,7 @@ export default class App extends Component{
         <div className="App">
           <div>
           <header className="App-header">
-            <h1 className="h1tag">Nonogram.io</h1>
+            <h1 className="h1tag">Nonogram.io~</h1>
           </header>
     
           <div className="gameBoard">
