@@ -42,6 +42,21 @@
   text-align: center;
   width: 50px;
 }
+.clickedSquare{
+  background: rgb(0, 0, 0);
+  border: 1px solid #999;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 50px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 50px;
+
+}
 .labelSquare {
   background: transparent;
   border: 1px solid #999;
@@ -63,7 +78,6 @@
 
 .square:hover{
   background: red;
-
 }
 
 .gameHolder{
