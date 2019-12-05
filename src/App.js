@@ -5,6 +5,8 @@ import Login from './Screens/Login.js'
 import Board from './Components/Board.js'
 
 import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
+
 import Container from '@material-ui/core/Container'
 
 
@@ -46,6 +48,9 @@ export default class App extends Component {
   }
 
 
+  onCheckClicked = () => {
+  }
+
   componentDidMount() {
     // fetch('https://localhost:8095/login/game')
     //   .then(res => res.json())
@@ -71,32 +76,45 @@ export default class App extends Component {
               <h1 className="h1tag">Nonogram.io~</h1>
             </header>
             <Grid
-              container 
-              flex-direction="row"             
+              container
               direction="row"
-              justify="center"
-              alignItems="center"
+              justify="flex-end"
+              alignItems="flex-end"
             >
               <Grid
                 container
+                item xs={3}
                 direction="column"
-                justify="center"
-                alignItems="center">
-                <Board topLabels={this.state.topLabels} gameField={false} />
+                justify="flex-end"
+                alignItems="flex-end">
+                <Board topLabels={this.state.leftLabels} gameField={false} />
+
               </Grid>
               <Grid
                 container
+                item xs={7}
                 direction="column"
-                justify="center"
-                alignItems="center">
-                <Board topLabels={this.state.leftLabels} gameField={false} />
+                alignItems="flex-start">
+
+
+                <Board topLabels={this.state.topLabels} gameField={false} />
 
                 <Board gameField={true} />
-              </Grid>
-              <Grid>
-                <button onClick={() => this.onLoginClicked()}>Back</button>
+
+
 
               </Grid>
+
+
+
+
+            </Grid>
+            <Grid
+            container
+              >
+
+              <Button variant="contained" color="secondary" onClick={() => this.onLoginClicked()}>Back</Button>
+              <Button size="small" variant="outlined" onClick={() => this.onCheckClicked()}>Check</Button>
 
             </Grid>
 

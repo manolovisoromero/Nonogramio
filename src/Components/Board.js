@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
 import Square from './Square.js'
+import Grid from '@material-ui/core/Grid'
+
 
 
 export default class Board extends Component {
@@ -35,15 +37,15 @@ export default class Board extends Component {
       if (!this.state.field) {
   
         return (
-          <div>
+          <Grid >
             {this.state.fieldPressed.map((value1, index1) => {
-              return <div className="board-row" key={index1}>
+              return <div className="board-row" display="inline-block" key={index1}>
                 {this.state.fieldPressed[index1].map((value2, index2) => {
                   return <Square clas={'labelSquare'}  key={index2} value={this.state.topLabels[index1][index2]}></Square>
                 })}
               </div>
             })}
-          </div>
+          </Grid>
         )
       } 
       else if (this.state.field) {
@@ -53,7 +55,7 @@ export default class Board extends Component {
             {this.state.fieldPressed.map((value1, index1) => {
               return <div className="board-row" key={index1}>
                 {this.state.fieldPressed[index1].map((value2, index2) => {
-                  return <Square clas={'square'}  key={index2} ></Square>
+                  return <Square clas={'square'}  field={true} key={index2} ></Square>
                 })}
               </div>
             })}

@@ -20,16 +20,19 @@ export default class Square extends Component {
 
  
     handleClick() {
-      if (this.state.clas === 'clickedSquare') {
-        this.setState({
-          clas: 'square'
-        })
-      } else {
-        this.setState({
-          clas: 'clickedSquare'
-        })
-  
+      if(this.state.fieldcell){
+        if (this.state.clas === 'clickedSquare') {
+          this.setState({
+            clas: 'square'
+          })
+        } else {
+          this.setState({
+            clas: 'clickedSquare'
+          })
+    
+        }
       }
+      
   
     }
   
