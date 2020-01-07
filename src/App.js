@@ -6,8 +6,10 @@ import Board from './Components/Board.js'
 
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
+import axios from 'axios';
 
 import Container from '@material-ui/core/Container'
+
 
 
 
@@ -44,7 +46,10 @@ export default class App extends Component {
 
 
   onLoginClicked = () => {
-    this.setState({ isLoggedin: !this.state.isLoggedin });
+
+      this.setState({ isLoggedin: !this.state.isLoggedin });
+
+
   }
 
 
@@ -52,12 +57,18 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    // fetch('https://localhost:8095/login/game')
-    //   .then(res => res.json())
-    //   .then(res => {
-    //     console.log(res[1])
 
-    //   });
+    const request = axios({
+      method: 'post',
+      url: 'https://localhost:8095/authenticate/authenticate',
+      data: {
+        username: this.state.username,
+        password: this.state.password
+      }
+    })
+
+    console.log(request.response)
+
 
   }
 
