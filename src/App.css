@@ -75,6 +75,24 @@
 .square:focus {
   outline: none;
 }
+.loginHolder{
+  background-image: url('C:/Users/Manol/Desktop/wallhaven-1jvjj1.jpg');
+  background-position: center;
+
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  position: fixed;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+
+
+}
 
 .square:hover{
   background: red;

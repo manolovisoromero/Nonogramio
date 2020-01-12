@@ -1,98 +1,172 @@
-import React, {Component} from 'react';
-
-import TextField from '@material-ui/core/TextField'
+import React, { Component } from 'react';
 import Button from '@material-ui/core/Button'
 import axios from 'axios';
-import https from 'https';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import FormControl from '@material-ui/core/FormControl';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import InputLabel from '@material-ui/core/InputLabel';
+import { makeStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import clsx from 'clsx';
+import { Alert } from 'reactstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
 
-class Login extends Component{
+var status = null;
+var token = null;
+var userID = null;
+
+class Login extends Component {
 
 
-constructor(props){
-    super(props);
-
-    this._handlePasswordChange = this._handlePasswordChange.bind(this);
-    this._handleUsernameChange = this._handleUsernameChange.bind(this);
-    this.loginPost = this.loginPost.bind(this);
+    constructor(props) {
+        super(props);
 
 
-    this.state = {
-        username: 'Username',
-        password: 'Password',
-        loginSuccess: false
+        this.loginPost = this.loginPost.bind(this);
+        this.handleClickShowPassword = this.handleClickShowPassword.bind(this);
+        this.handleMouseDownPassword = this.handleMouseDownPassword.bind(this);
+        this.setAlert = this.setAlert.bind(this);
+
+
+
+        this.state = {
+            username: '',
+            password: '',
+            loginSuccess: false,
+            showPassword: false,
+            alertEnabled: false,
+            alertMsg: 'test',
+            userID: null
+        }
+
+
+    }
+
+    async loginPost() {
+
+        var self = this
+
+        const request = axios({
+            method: 'post',
+            url: 'https://localhost:8095/authenticate/login',
+            data: {
+                username: this.state.username,
+                password: this.state.password
+            }
+        })
+
+        await request
+            .then(function (response) {
+                self.props.onLoginClicked()
+                self.props.setData(response.data.token, response.data.userID)
+            })
+            .catch(function (error) {
+                if (error.response.status === 400) {
+                    self.setAlert("Wrong credentials")
+                } else {
+                    self.setAlert("Error with status code: " + error.response.status)
+                }
+            })
+
+    }
+
+    setAlert(msg) {
+        this.setState({
+            alertEnabled: true,
+            alertMsg: msg
+        })
+    }
+
+    handleClickShowPassword = () => {
+        this.setState({
+            showPassword: !this.state.showPassword
+        })
+    };
+
+    handleMouseDownPassword(event) {
+        event.preventDefault();
+    };
+
+    handleChange = prop => event => {
+        this.setState({
+            [prop]: event.target.value
+        })
     }
 
 
-}
-
-async loginPost(){
-
-    // const agent = new https.Agent({  
-    //     rejectUnauthorized: false
-    //    });
-    
-    // const request = await axios({
-    //     method: 'post',
-    //     url: 'https://localhost:8095/authenticate/login',
-    //     httpAgent: agent,
-    //     data: {
-    //       username: this.state.username,
-    //       password: this.state.password
-    //     }
-    //   })
-  
-    //   console.log(request.response)
-
-    //   if(this.state.loginSuccess){
-    //       this.props.onLoginClicked()
-    //   }
-
-    fetch('https://localhost:8095/authenticate/login',
-    {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            username: this.state.username,
-            password: this.state.password
-        })
-
-    })
-  
-}
-
-
-_handlePasswordChange(e) {
-    this.setState({
-        password: e.target.value
-    });
-    console.log("password",this.state.password)
-}
-
-_handleUsernameChange(e) {
-    this.setState({
-        username: e.target.value
-    });
-    console.log("username",this.state.username)
-}
-
-
-    render(){
-        return(
-            <div /*style={{backgroundColor:'#001f3f'}}*/>
+    render() {
+        return (
+            <div style={{ flexDirection: 'column', display: 'flex' }}>
                 <h1>Username</h1>
-                <TextField  value={this.state.username} onChange={this._handleUsernameChange} id="outlined-basic" label="Outlined" variant="outlined" />
+                <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
+                    <InputLabel htmlFor="outlined-adornment-username">Username</InputLabel>
+                    <OutlinedInput
+                        id="outlined-adornment-username"
+                        value={this.state.username}
+                        onChange={this.handleChange('username')}
+                        labelWidth={90}
+                    />
+                </FormControl>
                 <h1>Password</h1>
-                <TextField value={this.state.password} onChange={this._handlePasswordChange} id="outlined-basic" label="Outlined" variant="outlined" />
-                <Button onClick={() => this.loginPost()} variant="outlined">Login</Button>
+                <FormControl className={clsx(classes.margin, classes.textField)} variant="filled">
+                    <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                    <OutlinedInput
+                        id="outlined-adornment-password"
+                        type={this.state.showPassword ? 'text' : 'password'}
+                        value={this.state.password}
+                        onChange={this.handleChange('password')}
+                        endAdornment={
+                            <InputAdornment position="end">
+                                <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={this.handleClickShowPassword}
+                                    onMouseDown={this.handleMouseDownPassword}
+                                    edge="end"
+                                >
+                                    {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
+                                </IconButton>
+                            </InputAdornment>
+                        }
+                        labelWidth={70}
+                    />
+                </FormControl>
+
+                {this.state.alertEnabled ?
+                    (<Alert color="dark">
+                        {this.state.alertMsg}
+                    </Alert>) : (null)
+                }
+                <div>
+                    <Button onClick={() => this.loginPost()} variant="contained" color="secondary">Login</Button>
+                </div>
             </div>
         )
     }
 }
 
 export default Login;
+
+
+const classes = makeStyles(theme => ({
+    root: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    margin: {
+        margin: theme.spacing(1),
+    },
+    withoutLabel: {
+        marginTop: theme.spacing(3),
+    },
+    textField: {
+        width: 200,
+        backgroundColor: 'white',
+        color: "white"
+
+    },
+}));

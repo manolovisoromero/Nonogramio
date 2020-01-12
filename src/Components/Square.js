@@ -29,19 +29,13 @@ export default class Square extends Component {
           this.setState({
             clas: 'clickedSquare'
           })
-    
         }
       }
-      
-  
     }
-  
-  
-  
     render() {
       return (
         <button className={this.state.clas} onClick={this.handleClick} background={this.state.backgroundcolor}>
-          {this.state.value}
+          {this.state.value !== 0 ? this.state.value : null}
         </button>
       );
     }
