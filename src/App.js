@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import Login from './Screens/Login.js'
 import Main from './Screens/Main.js'
-import axios from 'axios';
 
 export default class App extends Component {
 
@@ -24,10 +23,8 @@ export default class App extends Component {
   onCheckClicked = () => { }
 
   componentDidMount() {
-
-
-
   }
+
 
 
 

@@ -7,34 +7,46 @@ export default class Square extends Component {
       this.state = {
         fieldcell: props.field,
         value: props.value,
-        clas: props.clas,
+        class: props.class,
+        xPos: props.xPos,
+        yPos: props.yPos,
+        clicked: props.clicked
       }
       this.handleClick = this.handleClick.bind(this);
-  
-  
-    }
-  
-    componentDidMount() {
-  
+      this.handleRegisterFieldClick = this.handleRegisterFieldClick.bind(this);
     }
 
- 
     handleClick() {
       if(this.state.fieldcell){
-        if (this.state.clas === 'clickedSquare') {
+        if (this.props.clicked) {
           this.setState({
-            clas: 'square'
+            class: 'square'
           })
         } else {
           this.setState({
-            clas: 'clickedSquare'
+            class: 'clickedSquare'
           })
         }
       }
     }
+
+    handleRegisterFieldClick(){
+      if(this.state.fieldcell){
+        this.handleClick()
+        var params = { 
+          xPos: this.state.xPos,
+          yPos: this.state.yPos
+        }
+        this.props.registerFieldClick(params)
+      }
+    }
+
+
+
     render() {
+
       return (
-        <button className={this.state.clas} onClick={this.handleClick} background={this.state.backgroundcolor}>
+        <button className={this.state.class} onClick={this.handleRegisterFieldClick}  background={this.state.backgroundcolor}>
           {this.state.value !== 0 ? this.state.value : null}
         </button>
       );

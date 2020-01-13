@@ -1,21 +1,24 @@
 import Square from '../Components/Square'
+import { shallow, mount,configure } from 'enzyme';
+import expect from 'expect';
 import React from 'react';
+import Adapter from 'enzyme-adapter-react-16';
 import { create } from "react-test-renderer";
-import {mount} from 'enzyme';
+
+ configure({ adapter: new Adapter() });
 
 
-describe("Sqaure Component", () => {
-    test("Labelsquare render", () => {
-      const button = create(<Square clas={'labelSquare'}  value={1} />);
-      expect(button.toJSON()).toMatchSnapshot();
-    });
+it('Should be square before click', () => {
+  const component = create(<Square class={'square'}  field={true}  clicked={false} xPos={0} yPos={0}/>);
+  const instance = component.getInstance();
 
-    test("Field square render ", () => {
-        const button = create(<Square clas={'square'}  field={true} />);
-        expect(button.toJSON()).toMatchSnapshot();
-      });
-    
-  });
+  expect(instance.state.class).toBe('square')
+})
 
+it('Should be clickedSquare after click', () => {
+  const component = create(<Square class={'square'}  field={true}  clicked={false} xPos={0} yPos={0}/>);
+  const instance = component.getInstance();
+  instance.handleClick();
 
-
+  expect(instance.state.class).toBe('clickedSquare')
+})
