@@ -7,10 +7,6 @@ import axios from 'axios';
 
 import Container from '@material-ui/core/Container'
 
-
-
-var status = null;
-
 class Main extends Component {
 
 
@@ -18,7 +14,7 @@ class Main extends Component {
         super(props);
 
         this.onCheckCliked = this.onCheckCliked.bind(this);
-        this.onFieldInput = this.onFieldInput.bind(this);
+        this.registerFieldClick = this.registerFieldClick.bind(this);
 
 
         this.state = {
@@ -45,21 +41,20 @@ class Main extends Component {
 
     }
 
-    onFieldInput(x,y){
-  
-
-    }
-
+    registerFieldClick(params){
+        var tempField = [...this.state.fieldInput]
+        tempField[params.xPos][params.yPos] = !tempField[params.xPos][params.yPos]
+        this.setState({
+            fieldInput: tempField
+        })
+      }
+    
     onCheckCliked(){
-
         var self = this
-            
         console.log("ID"+this.props.userID)
         const request = axios({
             method: 'GET',
             url: 'https://localhost:8095/resources/cors3/' + this.props.userID
-            ,
-
         })
     
         request
@@ -74,17 +69,6 @@ class Main extends Component {
                 console.log(self.state.topLabels)
             })
     }
-
-
-
-
-
-
-
-
-
-
-
 
     render() {
         return (
@@ -114,7 +98,7 @@ class Main extends Component {
                             direction="column"
                             alignItems="flex-start">
                             <Board topLabels={this.state.topLabels} gameField={false} />
-                            <Board gameField={true} />
+                            <Board gameField={true} registerFieldClick={this.registerFieldClick} fieldInput={this.state.fieldInput}/>
                         </Grid>
                     </Grid>
                     : (null)}

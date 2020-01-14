@@ -16,10 +16,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
-var status = null;
-var token = null;
-var userID = null;
-
 class Login extends Component {
 
 
