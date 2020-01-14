@@ -8,6 +8,8 @@ import Grid from '@material-ui/core/Grid'
 export default class Board extends Component {
     constructor(props) {
       super(props)
+
+      this.fieldClicked= this.fieldClicked.bind(this);
       this.state = {
         field: props.gameField,
         fieldPressed: [
@@ -28,6 +30,16 @@ export default class Board extends Component {
   
     rendersquare(i) {
       return <Square field={true} clas={'square'} />
+    }
+
+    fieldClicked(x,y){    this.setState(prevState => ({
+      fieldPressed: {
+          ...prevState.fieldPressed,
+          [prevState.fieldPressed[x][y]]: true,
+      },
+  }));
+
+
     }
   
   
