@@ -76,7 +76,7 @@
   outline: none;
 }
 .loginHolder{
-  background-image: url('C:/Users/Manol/Desktop/wallhaven-1jvjj1.jpg');
+  background-image: url('./wallhaven-1jvjj1.jpg');
   background-position: center;
 
   height: 100%;

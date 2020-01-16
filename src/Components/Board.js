@@ -54,7 +54,7 @@ export default class Board extends Component {
             {this.state.fieldPressed.map((value1, index1) => {
               return <div className="board-row" display="inline-block" key={index1}>
                 {this.state.fieldPressed[index1].map((value2, index2) => {
-                  return <Square clas={'labelSquare'}  key={index2} value={this.state.topLabels[index1][index2]} registerFieldClick={this.props.registerFieldClick} xPos={index1} yPos={index2} ></Square>
+                  return <Square class={'labelSquare'}  key={index2} value={this.state.topLabels[index1][index2]} registerFieldClick={this.props.registerFieldClick} xPos={index1} yPos={index2} ></Square>
                 })}
               </div>
             })}
