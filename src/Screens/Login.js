@@ -13,6 +13,8 @@ import clsx from 'clsx';
 import { Alert } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import NoteList from '../Components/NoteList.js';
+
 
 
 
@@ -52,14 +54,14 @@ class Login extends Component {
             url: 'https://localhost:8095/authenticate/login',
             data: {
                 username: this.state.username,
-                password: this.state.password
+                password: this.state.password,
             }
         })
 
         await request
             .then(function (response) {
-                self.props.onLoginClicked()
                 self.props.setData(response.data.token, response.data.userID)
+                self.props.onLoginClicked()
             })
             .catch(function (error) {
                 if (error.response.status === 400) {
@@ -68,7 +70,6 @@ class Login extends Component {
                     self.setAlert("Error with status code: " + error.response.status)
                 }
             })
-
     }
 
     setAlert(msg) {
@@ -140,6 +141,7 @@ class Login extends Component {
                 <div>
                     <Button onClick={() => this.loginPost()} variant="contained" color="secondary">Login</Button>
                 </div>
+
             </div>
         )
     }
