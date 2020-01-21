@@ -14,6 +14,7 @@ import { Alert } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
+var passwordHash = require('password-hash');
 
 
 class Login extends Component {
@@ -52,7 +53,7 @@ class Login extends Component {
             url: 'https://localhost:8095/authenticate/login',
             data: {
                 username: this.state.username,
-                password: this.state.password
+                password: passwordHash.generate(this.state.password)
             }
         })
 
