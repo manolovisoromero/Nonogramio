@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import Login from './Screens/Login.js'
 import Main from './Screens/Main.js'
+import $ from 'jquery';
+
 
 export default class App extends Component {
 
@@ -23,6 +25,20 @@ export default class App extends Component {
   onCheckClicked = () => { }
 
   componentDidMount() {
+
+    // var settings = {
+    //   "url": "https://localhost:8095/resources/note/1",
+    //   "method": "GET",
+    //   "timeout": 0,
+    //   "headers": {
+    //     "Authorization": "Bearer sdsdsdsd"
+    //   },
+    // };
+    
+    // $.ajax(settings).done(function (response) {
+
+    // });
+   
   }
 
 
@@ -35,6 +51,8 @@ export default class App extends Component {
       authToken: Authtoken,
       userID: userid
     })
+
+
   }
 
   render() {

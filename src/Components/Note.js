@@ -36,6 +36,8 @@ class Note extends Component {
         this.setState({
             editingNote: false
         })
+
+        this.props.updateNote(this.state.content,this.state.noteID)
         //Update sent
 
     }
@@ -50,28 +52,29 @@ class Note extends Component {
 
     render() {
         return (
-            <div>
+            <div style={{borderStyle: 'ridge', borderColor: '#0D324D',borderRadius: '8px', alignContent: 'center', justifyContent: 'center', backgroundColor:'#fffdd0'}}>
 
                 {this.state.editingNote ?
                     <div>
                         <input
+                        data-cy={'editinginput'}
                             value={this.state.content}
                             type="text" name="name"
                             onChange={this.handleChange}
                         />
-                        <button onClick={this.sendUpdateClick}>Update</button>
+                        <button data-cy={'updatebutton'}onClick={this.sendUpdateClick}>Update</button>
                     </div>
                     :
-                    <p
+                    <p style={{ color:'black'}}
                         onClick={this.onUpdateClick}>
                         {this.state.content}
                     </p>
                 }
 
 
-                {this.state.noteID}
+               
 
-                <button onClick={this.onDeleteClick} >Delete</button>
+                <button data-cy={'deletebutton'} style={{ borderRadius: "6px" }}onClick={this.onDeleteClick} >Delete</button>
             </div>
         )
     }

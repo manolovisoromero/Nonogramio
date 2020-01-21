@@ -13,7 +13,6 @@ import clsx from 'clsx';
 import { Alert } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import NoteList from '../Components/NoteList.js';
 
 
 
@@ -61,6 +60,8 @@ class Login extends Component {
         await request
             .then(function (response) {
                 self.props.setData(response.data.token, response.data.userID)
+                console.log(response.data.token)
+
                 self.props.onLoginClicked()
             })
             .catch(function (error) {
@@ -138,7 +139,7 @@ class Login extends Component {
                         {this.state.alertMsg}
                     </Alert>) : (null)
                 }
-                <div>
+                <div style={{height: '100%'}}>
                     <Button onClick={() => this.loginPost()} variant="contained" color="secondary">Login</Button>
                 </div>
 

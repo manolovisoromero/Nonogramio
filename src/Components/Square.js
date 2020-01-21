@@ -41,12 +41,10 @@ export default class Square extends Component {
       }
     }
 
-
-
     render() {
 
       return (
-        <button className={this.state.class} onClick={this.handleRegisterFieldClick}  background={this.state.backgroundcolor}>
+        <button data-cy={this.state.fieldcell ?  this.state.xPos.toString() + this.state.yPos.toString() : (null) } className={this.state.class} onClick={this.handleRegisterFieldClick}  background={this.state.backgroundcolor}>
           {this.state.value !== 0 ? this.state.value : null}
         </button>
       );

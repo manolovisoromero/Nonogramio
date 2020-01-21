@@ -6,6 +6,8 @@ import Button from '@material-ui/core/Button'
 import axios from 'axios';
 import { Alert } from 'reactstrap';
 import NoteList from '../Components/NoteList.js';
+import $ from 'jquery';
+
 
 
 
@@ -66,13 +68,17 @@ class Main extends Component {
 
     getAllNotes() {
         var self = this
-        console.log("ID" + this.props.userID)
         var tempNotes = []
+        const headers = {
+            'Authorization': 'Bearer ' + this.props.token
+        };
+
+
         const request = axios({
             method: 'GET',
-            url: 'https://localhost:8095/resources/note/' + this.props.userID
+            url: 'https://localhost:8095/resources/note/' + this.props.userID,
+            headers: headers,
         })
-
         request
             .then(function (response) {
                 for (var i = 0; i < response.data.length; i++) {
@@ -85,9 +91,9 @@ class Main extends Component {
                     self.setState({
                         notes: tempNotes
                     })
-                    console.log(self.state.notes)
                 }
             })
+
     }
 
 
@@ -120,7 +126,6 @@ class Main extends Component {
                 }
             })
 
-        this.getAllNotes()
 
     }
 
@@ -142,6 +147,17 @@ class Main extends Component {
             .then(function (response) {
                 console.log(response.data)
                 if (response.data.win) {
+                    self.setState({
+                        loaded: false,
+                        fieldAnswers: [],
+                        fieldInput: [
+                            [false, false, false, false, false],
+                            [false, false, false, false, false],
+                            [false, false, false, false, false],
+                            [false, false, false, false, false],
+                            [false, false, false, false, false]
+                        ],
+                    })
                     self.setAlert("You won!")
                 } else {
                     self.setAlert("You lost :(")
@@ -187,6 +203,7 @@ class Main extends Component {
 
 
                             </Grid>
+
                         </Grid>
                         : (null)}
                     {this.state.alertEnabled ?
@@ -197,17 +214,18 @@ class Main extends Component {
                     <Grid
                         container
                     >
-                        <Button variant="contained" color="secondary" onClick={() => this.props.onLoginClicked()}>Log out</Button>
-                        <Button size="small" variant="outlined" onClick={() => this.onCheckCliked()}>Get game</Button>
-                        <Button size="small" variant="outlined" onClick={() => this.onCheckWinClick()}>Check</Button>
+                        <Button data-cy={'logout'} variant="contained" color="secondary" onClick={() => this.props.onLoginClicked()}>Log out</Button>
+                        <Button data-cy={'getgame'} size="small" variant="outlined" onClick={() => this.onCheckCliked()}>Get game</Button>
+                        <Button data-cy={'check'} size="small" variant="outlined" onClick={() => this.onCheckWinClick()}>Check</Button>
                     </Grid>
+                    {this.state.userID === null ? (null) :
+
+                        <NoteList notes={this.state.notes} userID={this.state.userID}></NoteList>
+
+                    }
                 </Container>
 
-                {this.state.userID === null ? (null) :
-                
-                    <NoteList notes={this.state.notes} userID={this.state.userID}></NoteList>
 
-                }
 
             </div>
         )
