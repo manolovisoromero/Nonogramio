@@ -17,6 +17,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 var passwordHash = require('password-hash');
 
 
+
 class Login extends Component {
 
 
@@ -59,8 +60,10 @@ class Login extends Component {
 
         await request
             .then(function (response) {
-                self.props.onLoginClicked()
                 self.props.setData(response.data.token, response.data.userID)
+                console.log(response.data.token)
+
+                self.props.onLoginClicked()
             })
             .catch(function (error) {
                 if (error.response.status === 400) {
@@ -69,7 +72,6 @@ class Login extends Component {
                     self.setAlert("Error with status code: " + error.response.status)
                 }
             })
-
     }
 
     setAlert(msg) {
@@ -138,9 +140,10 @@ class Login extends Component {
                         {this.state.alertMsg}
                     </Alert>) : (null)
                 }
-                <div>
+                <div style={{height: '100%'}}>
                     <Button onClick={() => this.loginPost()} variant="contained" color="secondary">Login</Button>
                 </div>
+
             </div>
         )
     }

@@ -14,6 +14,7 @@
     "enzyme-adapter-react-16": "^1.15.2",
     "expect": "^24.9.0",
     "https": "^1.0.0",
+    "jquery": "^3.4.1",
     "material-ui-icons": "^1.0.0-beta.36",
     "password-hash": "^1.2.2",
     "react": "^16.12.0",
